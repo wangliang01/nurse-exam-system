@@ -5,7 +5,7 @@ import QuestionCard from "@/components/exam/QuestionCard";
 import AnswerSheet from "@/components/exam/AnswerSheet";
 import Timer from "@/components/exam/Timer";
 import { Question } from "@/types";
-import { ChevronLeft, ChevronRight, Send } from "lucide-react";
+import { ChevronLeft, ChevronRight, Send, History as HistoryIcon } from "lucide-react";
 
 // Mock Data
 const mockQuestions: Question[] = Array.from({ length: 100 }).map((_, i) => ({
@@ -37,9 +37,10 @@ export default function ExamPage() {
   };
 
   const handleFinish = () => {
-    if (confirm("Are you sure you want to submit your exam?")) {
+    if (confirm("Are you sure you want to submit your exam? This action cannot be undone.")) {
       alert("Submitted successfully!");
       localStorage.removeItem("nurse_exam_progress");
+      window.location.href = "/";
     }
   };
 
@@ -48,54 +49,71 @@ export default function ExamPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Premium Header */}
-      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+      <header className="glass-header shadow-sm">
         <div className="max-w-[1440px] mx-auto px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black italic">N</div>
+          <div className="flex items-center gap-5">
+            <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-xl italic shadow-lg shadow-indigo-100 ring-4 ring-indigo-50">N</div>
             <div>
-              <h1 className="text-lg font-black text-slate-800 tracking-tight uppercase">Nurse Assessment 2026</h1>
-              <p className="text-xs font-bold text-slate-400">ID: N20240912 | CANDIDATE: ALEX WANG</p>
+              <h1 className="text-xl font-black text-slate-800 tracking-tight leading-none mb-1">Annual Assessment 2026</h1>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded tracking-widest uppercase">Official Session</span>
+                <p className="text-xs font-bold text-indigo-600/60 uppercase tracking-tighter">Candidate: Alex Wang (N20240912)</p>
+              </div>
             </div>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <Timer initialSeconds={7200} onTimeUp={handleFinish} />
-            <button onClick={handleFinish} className="btn-primary flex items-center gap-2 py-2.5">
-              <Send size={18} /> Submit Exam
+            <div className="h-8 w-px bg-slate-200" />
+            <button onClick={handleFinish} className="btn-primary flex items-center gap-2 py-3 px-8 text-sm">
+              <Send size={18} /> Finish & Submit
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-[1440px] mx-auto px-8 py-10 grid grid-cols-12 gap-10">
+      <main className="max-w-[1440px] mx-auto px-8 py-12 grid grid-cols-12 gap-12">
         {/* Left: Main Content */}
-        <div className="col-span-12 lg:col-span-8 space-y-8">
-          <QuestionCard
-            question={mockQuestions[currentIndex]}
-            selectedAnswer={answers[mockQuestions[currentIndex].id] || ""}
-            onAnswerChange={handleAnswerChange}
-            index={currentIndex}
-          />
+        <div className="col-span-12 lg:col-span-8 space-y-10">
+          <div className="relative">
+            <QuestionCard
+              question={mockQuestions[currentIndex]}
+              selectedAnswer={answers[mockQuestions[currentIndex].id] || ""}
+              onAnswerChange={handleAnswerChange}
+              index={currentIndex}
+            />
+          </div>
 
-          <div className="flex justify-between items-center pt-4">
+          <div className="flex justify-between items-center py-6 border-t border-slate-200/60">
             <button
               disabled={currentIndex === 0}
-              onClick={() => setCurrentIndex((p) => p - 1)}
-              className="btn-secondary flex items-center gap-2"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setCurrentIndex((p) => p - 1);
+              }}
+              className="btn-secondary flex items-center gap-2 px-8"
             >
               <ChevronLeft size={20} /> Previous
             </button>
             
-            <div className="flex gap-2">
-               {Array.from({length: 5}).map((_, i) => (
-                 <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === currentIndex % 5 ? 'bg-indigo-600' : 'bg-slate-200'}`} />
-               ))}
+            <div className="flex items-center gap-3">
+               <span className="text-sm font-black text-slate-400 mr-2 uppercase tracking-widest">Progress</span>
+               <div className="flex gap-2.5">
+                  {Array.from({length: 5}).map((_, i) => (
+                    <div key={i} className={`h-2 rounded-full transition-all duration-300 ${
+                      i === currentIndex % 5 ? 'w-8 bg-indigo-600' : 'w-2 bg-slate-200'
+                    }`} />
+                  ))}
+               </div>
             </div>
 
             <button
               disabled={currentIndex === mockQuestions.length - 1}
-              onClick={() => setCurrentIndex((p) => p + 1)}
-              className="btn-primary flex items-center gap-2"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setCurrentIndex((p) => p + 1);
+              }}
+              className="btn-primary flex items-center gap-2 px-10"
             >
               Next Question <ChevronRight size={20} />
             </button>
@@ -104,12 +122,30 @@ export default function ExamPage() {
 
         {/* Right: Sidebar */}
         <div className="hidden lg:block lg:col-span-4">
-          <AnswerSheet
-            total={mockQuestions.length}
-            answers={answers}
-            currentIndex={currentIndex}
-            onSelect={setCurrentIndex}
-          />
+          <div className="sticky top-28">
+            <AnswerSheet
+              total={mockQuestions.length}
+              answers={answers}
+              currentIndex={currentIndex}
+              onSelect={(idx) => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setCurrentIndex(idx);
+              }}
+            />
+            
+            <div className="mt-8 p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100 flex items-start gap-4">
+               <div className="p-2 bg-indigo-100 text-indigo-600 rounded-lg">
+                 <HistoryIcon size={20} />
+               </div>
+               <div>
+                 <h4 className="text-sm font-bold text-indigo-900 mb-1">Session Auto-Save</h4>
+                 <p className="text-xs font-medium text-indigo-600/70 leading-relaxed">
+                   Your progress is automatically saved every time you select an answer. 
+                   You can resume even if you close the browser.
+                 </p>
+               </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
