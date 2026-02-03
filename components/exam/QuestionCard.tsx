@@ -36,9 +36,9 @@ export default function QuestionCard({ question, selectedAnswer, onAnswerChange,
             <span className={`status-badge ${
               question.type === 'SINGLE' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-purple-50 text-purple-600 border border-purple-100'
             }`}>
-              {question.type === "SINGLE" ? "Single Choice" : "Multiple Choice"}
+              {question.type === "SINGLE" ? "单选题" : "多选题"}
             </span>
-            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Question ID: Q{question.id.toString().padStart(4, '0')}</span>
+            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">题目编号: Q{question.id.toString().padStart(4, '0')}</span>
           </div>
           <h2 className="text-2xl font-bold text-slate-800 leading-snug">
             {question.content}

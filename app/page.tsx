@@ -12,15 +12,15 @@ export default function HomePage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
             </span>
-            ANNUAL ASSESSMENT 2026 NOW OPEN
+            2026年度 护士岗位技能考核已开启
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.1]">
-            Elevating <span className="text-indigo-600">Nursing</span> <br />
-            Standard of Care.
+            提升<span className="text-indigo-600">护理</span>专业标准 <br />
+            守护生命健康
           </h1>
           <p className="text-slate-500 text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-            The next-generation assessment platform for professional nursing staff. 
-            Evaluate clinical competencies with precision and ease.
+            专为临床护理人员设计的全方位评估平台。
+            以专业、严谨、精准的方式评价临床核心胜任力。
           </p>
         </div>
       </section>
@@ -35,20 +35,20 @@ export default function HomePage() {
                 <GraduationCap size={32} />
               </div>
               <div className="flex flex-col items-end gap-2">
-                <span className="px-4 py-2 bg-slate-100 rounded-xl text-sm font-bold text-slate-600 border border-slate-200/60">120 Minutes</span>
-                <span className="text-xs font-bold text-slate-400">80 Single + 20 Multiple Choice</span>
+                <span className="px-4 py-2 bg-slate-100 rounded-xl text-sm font-bold text-slate-600 border border-slate-200/60">120 分钟</span>
+                <span className="text-xs font-bold text-slate-400">80题单选 + 20题多选</span>
               </div>
             </div>
-            <h2 className="text-4xl font-black text-slate-800 mb-4">Official Mock Examination</h2>
+            <h2 className="text-4xl font-black text-slate-800 mb-4">官方模拟考试</h2>
             <p className="text-slate-500 text-lg mb-12 flex-1 leading-relaxed">
-              Comprehensive year-end assessment covering clinical skills, pharmacology, 
-              patient safety, and ethical practice. Prepare for your professional certification.
+              涵盖临床技能、药理学、病人安全及伦理准则的综合性年终考核。
+              完整还原真实考场环境，助力专业认证。
             </p>
             <Link 
               href="/exam" 
               className="btn-primary py-5 text-xl flex items-center justify-center gap-3 w-full"
             >
-              Enter Examination Room <ArrowRight size={24} />
+              进入考场 <ArrowRight size={24} />
             </Link>
           </div>
         </div>
@@ -59,10 +59,10 @@ export default function HomePage() {
             <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-8 border border-emerald-100">
               <Trophy size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-3">Practice Mode</h3>
-            <p className="text-slate-400 font-medium mb-6">Interactive practice with instant feedback and detailed clinical rationales.</p>
+            <h3 className="text-2xl font-bold text-slate-800 mb-3">练习模式</h3>
+            <p className="text-slate-400 font-medium mb-6">交互式练习，提供即时反馈及详细的临床案例解析。</p>
             <div className="text-indigo-600 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition-transform">
-              Start Practice Session <ArrowRight size={16} />
+              开始练习 <ArrowRight size={16} />
             </div>
           </div>
 
@@ -70,10 +70,10 @@ export default function HomePage() {
             <div className="w-14 h-14 bg-slate-50 text-slate-600 rounded-2xl flex items-center justify-center mb-8 border border-slate-100">
               <History size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-3">Performance</h3>
-            <p className="text-slate-400 font-medium mb-6">Analyze your previous attempts, competency mapping, and certificates.</p>
+            <h3 className="text-2xl font-bold text-slate-800 mb-3">成绩与记录</h3>
+            <p className="text-slate-400 font-medium mb-6">分析既往尝试记录、能力图谱映射及下载电子证书。</p>
             <div className="text-slate-600 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition-transform">
-              Review My History <ArrowRight size={16} />
+              查看我的历史 <ArrowRight size={16} />
             </div>
           </div>
         </div>
@@ -81,12 +81,12 @@ export default function HomePage() {
 
       <footer className="mt-24 py-12 w-full text-center border-t border-slate-100">
         <div className="flex justify-center gap-8 mb-4 text-slate-300">
-          <span className="font-bold tracking-widest text-[10px] uppercase">Reliable</span>
-          <span className="font-bold tracking-widest text-[10px] uppercase">Secure</span>
-          <span className="font-bold tracking-widest text-[10px] uppercase">Professional</span>
+          <span className="font-bold tracking-widest text-[10px] uppercase">严谨</span>
+          <span className="font-bold tracking-widest text-[10px] uppercase">安全</span>
+          <span className="font-bold tracking-widest text-[10px] uppercase">专业</span>
         </div>
         <p className="text-slate-400 text-sm font-bold">
-          &copy; 2026 GENERAL HOSPITAL NURSING DEPARTMENT
+          &copy; 2026 中心医院护理部 版权所有
         </p>
       </footer>
     </div>

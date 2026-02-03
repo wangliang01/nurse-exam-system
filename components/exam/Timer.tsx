@@ -43,7 +43,7 @@ export default function Timer({ initialSeconds, onTimeUp }: TimerProps) {
         <TimerIcon size={22} strokeWidth={2.5} />
       </div>
       <div className="flex flex-col">
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none mb-0.5 text-slate-400">Time Remaining</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none mb-0.5 text-slate-400">剩余时间</span>
         <span className="text-xl font-black tabular-nums leading-none">{formatTime(seconds)}</span>
       </div>
     </div>

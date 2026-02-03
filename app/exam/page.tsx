@@ -10,9 +10,9 @@ import { ChevronLeft, ChevronRight, Send, History as HistoryIcon } from "lucide-
 // Mock Data
 const mockQuestions: Question[] = Array.from({ length: 100 }).map((_, i) => ({
   id: i + 1,
-  content: i < 80 ? `Clinical scenario: A patient presents with acute respiratory distress. What is the immediate nursing priority?` : `Which of the following are potential complications of long-term immobility? (Select all that apply)`,
+  content: i < 80 ? `临床场景：一位病人出现急性呼吸窘迫。此时的首要护理措施是什么？` : `以下哪些是长期卧床病人可能出现的并发症？（多选题）`,
   type: i < 80 ? "SINGLE" : "MULTIPLE",
-  options: ["Option Alpha: Detailed clinical response", "Option Beta: Intervention strategy B", "Option Gamma: Emergency protocol C", "Option Delta: Assessment procedure D"],
+  options: ["选项 A: 详细的临床响应描述", "选项 B: 干预策略 B 的实施", "选项 C: 启动紧急处置协议 C", "选项 D: 执行评估程序 D"],
 }));
 
 export default function ExamPage() {
@@ -37,8 +37,8 @@ export default function ExamPage() {
   };
 
   const handleFinish = () => {
-    if (confirm("Are you sure you want to submit your exam? This action cannot be undone.")) {
-      alert("Submitted successfully!");
+    if (confirm("确定要提交试卷吗？提交后将无法修改。")) {
+      alert("提交成功！");
       localStorage.removeItem("nurse_exam_progress");
       window.location.href = "/";
     }
@@ -54,10 +54,10 @@ export default function ExamPage() {
           <div className="flex items-center gap-5">
             <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-xl italic shadow-lg shadow-indigo-100 ring-4 ring-indigo-50">N</div>
             <div>
-              <h1 className="text-xl font-black text-slate-800 tracking-tight leading-none mb-1">Annual Assessment 2026</h1>
+              <h1 className="text-xl font-black text-slate-800 tracking-tight leading-none mb-1">2026年度护理岗位考核</h1>
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded tracking-widest uppercase">Official Session</span>
-                <p className="text-xs font-bold text-indigo-600/60 uppercase tracking-tighter">Candidate: Alex Wang (N20240912)</p>
+                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded tracking-widest uppercase">正式考试</span>
+                <p className="text-xs font-bold text-indigo-600/60 uppercase tracking-tighter">考生：王力 (工号: N20240912)</p>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function ExamPage() {
             <Timer initialSeconds={7200} onTimeUp={handleFinish} />
             <div className="h-8 w-px bg-slate-200" />
             <button onClick={handleFinish} className="btn-primary flex items-center gap-2 py-3 px-8 text-sm">
-              <Send size={18} /> Finish & Submit
+              <Send size={18} /> 结束并交卷
             </button>
           </div>
         </div>
@@ -93,11 +93,11 @@ export default function ExamPage() {
               }}
               className="btn-secondary flex items-center gap-2 px-8"
             >
-              <ChevronLeft size={20} /> Previous
+              <ChevronLeft size={20} /> 上一题
             </button>
             
             <div className="flex items-center gap-3">
-               <span className="text-sm font-black text-slate-400 mr-2 uppercase tracking-widest">Progress</span>
+               <span className="text-sm font-black text-slate-400 mr-2 uppercase tracking-widest">答题进度</span>
                <div className="flex gap-2.5">
                   {Array.from({length: 5}).map((_, i) => (
                     <div key={i} className={`h-2 rounded-full transition-all duration-300 ${
@@ -115,7 +115,7 @@ export default function ExamPage() {
               }}
               className="btn-primary flex items-center gap-2 px-10"
             >
-              Next Question <ChevronRight size={20} />
+              下一题 <ChevronRight size={20} />
             </button>
           </div>
         </div>
@@ -138,10 +138,9 @@ export default function ExamPage() {
                  <HistoryIcon size={20} />
                </div>
                <div>
-                 <h4 className="text-sm font-bold text-indigo-900 mb-1">Session Auto-Save</h4>
+                 <h4 className="text-sm font-bold text-indigo-900 mb-1">系统实时存盘</h4>
                  <p className="text-xs font-medium text-indigo-600/70 leading-relaxed">
-                   Your progress is automatically saved every time you select an answer. 
-                   You can resume even if you close the browser.
+                   您的答题进度已实时保存。即使意外关闭浏览器，重新打开后仍可继续答题。
                  </p>
                </div>
             </div>
