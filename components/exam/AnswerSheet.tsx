@@ -1,5 +1,7 @@
 "use client";
 
+import { Clock, CheckCircle2 } from "lucide-react";
+
 interface AnswerSheetProps {
   total: number;
   answers: Record<number, string>;
@@ -8,32 +10,41 @@ interface AnswerSheetProps {
 }
 
 export default function AnswerSheet({ total, answers, currentIndex, onSelect }: AnswerSheetProps) {
+  const answeredCount = Object.keys(answers).length;
+  const progressPercent = (answeredCount / total) * 100;
+
   return (
-    <div className="bg-white p-4 rounded-xl border border-slate-200">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-bold text-slate-700">答题卡</h3>
-        <span className="text-sm text-slate-500">
-          已答: <span className="text-blue-600 font-bold">{Object.keys(answers).length}</span> / {total}
-        </span>
+    <div className="modern-card p-6 sticky top-28">
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex justify-between items-end">
+          <h3 className="font-bold text-slate-800 text-lg">Question Sheet</h3>
+          <span className="text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
+            {answeredCount}/{total}
+          </span>
+        </div>
+        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+          <div 
+            className="bg-indigo-600 h-full transition-all duration-500 ease-out" 
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
       </div>
 
-      <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 overflow-y-auto max-h-[400px] pr-2">
+      <div className="grid grid-cols-5 gap-2">
         {Array.from({ length: total }).map((_, i) => {
-          const isAnswered = !!answers[i + 1]; // 假设题目ID或索引从1开始
+          const isAnswered = !!answers[i + 1];
           const isCurrent = currentIndex === i;
 
           return (
             <button
               key={i}
               onClick={() => onSelect(i)}
-              className={`h-10 rounded-md text-sm font-medium transition-all ${
+              className={`h-11 rounded-xl text-sm font-bold transition-all transform active:scale-90 ${
                 isCurrent
-                  ? "ring-2 ring-blue-500 ring-offset-2"
-                  : ""
-              } ${
-                isAnswered
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-50 text-slate-400 border border-slate-200 hover:bg-slate-100"
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 scale-105"
+                  : isAnswered
+                  ? "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+                  : "bg-slate-50 text-slate-400 hover:bg-slate-100 border border-slate-100"
               }`}
             >
               {i + 1}
@@ -41,11 +52,11 @@ export default function AnswerSheet({ total, answers, currentIndex, onSelect }: 
           );
         })}
       </div>
-
-      <div className="mt-6 space-y-2 border-t pt-4">
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <span className="w-3 h-3 bg-blue-600 rounded-sm"></span> 已答
-          <span className="w-3 h-3 bg-slate-50 border rounded-sm ml-4"></span> 未答
+      
+      <div className="mt-8 p-4 bg-slate-50 rounded-2xl space-y-3">
+        <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+           <div className="w-2 h-2 rounded-full bg-indigo-600" /> Finished
+           <div className="w-2 h-2 rounded-full bg-slate-300 ml-4" /> Pending
         </div>
       </div>
     </div>

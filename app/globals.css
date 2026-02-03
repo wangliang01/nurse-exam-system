@@ -2,13 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+  body {
+    @apply bg-[#F8FAFC] text-slate-900 antialiased;
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: white;
+@layer components {
+  .modern-card {
+    @apply bg-white border border-slate-200 shadow-sm rounded-2xl;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold 
+           hover:bg-indigo-700 active:scale-95 transition-all shadow-md hover:shadow-indigo-200;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl font-semibold 
+           hover:bg-slate-50 active:scale-95 transition-all;
+  }
 }
