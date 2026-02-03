@@ -1,0 +1,56 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum QuestionType {
+  SINGLE
+  MULTIPLE
+}
+
+enum Role {
+  ADMIN
+  NURSE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  employeeId String  @unique // 工号
+  name      String
+  password  String
+  role      Role     @default(NURSE)
+  department String?
+  records   ExamRecord[]
+}
+
+model Question {
+  id          Int          @id @default(autoincrement())
+  content     String       @db.Text
+  type        QuestionType
+  options     Json         // 存储格式: ["选项A", "选项B", "选项C", "选项D"]
+  answer      String       // 单选: "A", 多选: "A,B,C"
+  explanation String?      @db.Text
+  category    String?
+  createdAt   DateTime     @default(now())
+}
+
+model ExamRecord {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  score       Int      @default(0)
+  correctCount Int     @default(0)
+  wrongCount   Int     @default(0)
+  startTime   DateTime @default(now())
+  endTime     DateTime?
+  duration    Int?     // 完成考试所用秒数
+  answers     Json     // 详细记录: { "questionId": "userAnswer" }
+  type        String   // "PRACTICE" or "MOCK"
+  isFinished  Boolean  @default(false)
+}
